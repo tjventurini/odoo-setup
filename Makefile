@@ -36,3 +36,6 @@ login-db:
 
 login-db-client:
 	@docker compose exec --user postgres postgres psql --username=odoo --dbname=odoo
+
+regenerate-assets:
+	@docker compose exec --user postgres postgres psql --username=odoo --dbname=odoo -c "delete from ir_attachment where res_model='ir.ui.view' and name like '%assets_%';"
