@@ -11,13 +11,9 @@ services:
     depends_on:
       - postgres
     restart: unless-stopped
-    # ports:
-    #   - "8069:8069"
     volumes:
-      # - odoo-web-data:/var/lib/odoo
-      # - ./config:/etc/odoo
-      # - ./addons:/mnt/extra-addons
-      - ./tmp:/outside-tmp
+      - ./config:/etc/odoo
+      - ./addons:/mnt/extra-addons
     environment:
     - HOST=${DB_HOST}
     - USER=${DB_USER}
