@@ -1,9 +1,7 @@
-version: '3.1'
-
 networks:
   frontend:
-    external:
-      name: reverse-proxy
+    external: true
+    name: reverse-proxy
   backend:
     driver: bridge
 
@@ -12,6 +10,7 @@ services:
     image: odoo:17.0
     depends_on:
       - postgres
+    restart: unless-stopped
     # ports:
     #   - "8069:8069"
     volumes:
