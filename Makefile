@@ -2,9 +2,6 @@ init:
 	@cp .env.example .env
 	@echo "Is this a production environment? [y/N]" && read ans && if [ "$$ans" = "y" ]; then ln -s docker-compose.prod.yml docker-compose.yml; else ln -s docker-compose.local.yml docker-compose.yml; fi
 
-build:
-	docker compose build --no-cache
-
 up:
 	@docker compose up -d
 start: up
