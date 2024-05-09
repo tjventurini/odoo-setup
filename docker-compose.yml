@@ -1,0 +1,49 @@
+version: '3.1'
+
+networks:
+  frontend:
+    external:
+      name: reverse-proxy
+  backend:
+    driver: bridge
+
+services:
+  odoo:
+    image: odoo:17.0
+    depends_on:
+      - postgres
+    # ports:
+    #   - "8069:8069"
+    volumes:
+      # - odoo-web-data:/var/lib/odoo
+      # - ./config:/etc/odoo
+      # - ./addons:/mnt/extra-addons
+      - ./tmp:/outside-tmp
+    environment:
+    - HOST=${DB_HOST}
+    - USER=${DB_USER}
+    - PASSWORD=${DB_PASSWORD}
+    networks:
+     - frontend
+     - backend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=reverse-proxy"
+      # http
+      - "traefik.http.routers.odoo.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.odoo.entrypoints=${ENTRYPOINT}"
+  postgres:
+    image: postgres:15
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_USER=${DB_USER}
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data/pgdata
+    networks:
+     - backend
+
+volumes:
+  odoo-web-data:
+  odoo-db-data:
