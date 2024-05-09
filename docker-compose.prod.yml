@@ -24,9 +24,11 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=reverse-proxy"
-      # http
+      # https
       - "traefik.http.routers.odoo.rule=Host(`${DOMAIN}`)"
-      - "traefik.http.routers.odoo.entrypoints=web"
+      - "traefik.http.routers.odoo.entrypoints=websecure"
+      - "traefik.http.routers.odoo.tls=true"
+      - "traefik.http.routers.odoo.tls.certresolver=letsencrypt"
   postgres:
     image: postgres:15
     environment:
