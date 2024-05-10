@@ -29,6 +29,7 @@ services:
       - "traefik.http.routers.odoo.entrypoints=web"
   postgres:
     image: postgres:15
+    restart: unless-stopped
     environment:
       - PGDATA=/var/lib/postgresql/data/pgdata
       - POSTGRES_DB=postgres
