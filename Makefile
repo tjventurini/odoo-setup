@@ -26,10 +26,10 @@ clear:
 	@rm .env
 
 login-odoo:
-	@docker compose exec --user odoo odoo bash
+	@docker compose exec --user odoo web bash
 
 login-odoo-root:
-	@docker compose exec --user root odoo bash
+	@docker compose exec --user root web bash
 
 login-db:
 	@docker compose exec --user postgres postgres bash
