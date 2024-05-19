@@ -35,7 +35,7 @@ login-db:
 	@docker compose exec --user postgres postgres bash
 
 login-db-client:
-	@docker compose exec --user postgres postgres psql --username=odoo --dbname=odoo
+	@echo "What database do you want to use? [odoo]" && read ans && if [ -z "$$ans" ]; then DB=odoo; else DB=$$ans; fi; docker compose exec --user postgres postgres psql --username=odoo --dbname=$$DB
 
 regenerate-assets:
-	@docker compose exec --user postgres postgres psql --username=odoo --dbname=odoo -c "delete from ir_attachment where res_model='ir.ui.view' and name like '%assets_%';"
+	@echo "What database do you want to use? [odoo]" && read ans && if [ -z "$$ans" ]; then DB=odoo; else DB=$$ans; fi; docker compose exec --user postgres postgres psql --username=odoo --dbname=$$DB -c "delete from ir_attachment where res_model='ir.ui.view' and name like '%assets_%';"
