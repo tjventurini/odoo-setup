@@ -28,6 +28,7 @@ services:
       # http
       - "traefik.http.routers.odoo.rule=Host(`${DOMAIN}`)"
       - "traefik.http.routers.odoo.entrypoints=web"
+      
   postgres:
     image: postgres:15
     restart: unless-stopped
