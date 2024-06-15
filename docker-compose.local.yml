@@ -10,7 +10,7 @@ services:
     image: odoo:17.0
     depends_on:
       - postgres
-    restart: unless-stopped
+    restart: no
     volumes:
       - ./config:/etc/odoo
       - ./addons:/mnt/extra-addons
@@ -31,7 +31,7 @@ services:
       
   postgres:
     image: postgres:15
-    restart: unless-stopped
+    restart: no
     environment:
       - PGDATA=/var/lib/postgresql/data/pgdata
       - POSTGRES_DB=postgres
